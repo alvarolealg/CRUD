@@ -46,8 +46,9 @@ namespace negocio
                     
                     aux.Tipo = new Categoria();
                     aux.Tipo.Descripcion = (string)lector["Tipo"];
-                    //aux.Tipo.Id = (int)lector["IdCategoria"];
+                    aux.Tipo.Id = (int)lector["IdCategoria"];
                     aux.Marca = new Marca();
+                    aux.Marca.Descripcion = (string)lector["Marca"];
                     aux.Marca.Id = (int)lector["IdMarca"];
 
                         lista.Add(aux);
