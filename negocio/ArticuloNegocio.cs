@@ -24,7 +24,6 @@ namespace negocio
                 comando.CommandText = "select A.Id IdArticulo,A.IdMarca,A.IdCategoria, A.Codigo Codigo, A.Nombre NombreArticulo, A.Descripcion DescArticulo, A.ImagenUrl Imagen,Precio,C.Descripcion Tipo, M.Descripcion Marca from ARTICULOS A, CATEGORIAS C, MARCAS M where C.Id=A.IdCategoria and M.Id=A.IdMarca";
                 //comando.CommandText = "select A.Id IdArticulo,Codigo,Nombre,A.Descripcion DescArticulo,Precio,M.Descripcion Marca,M.Id IdMarca, C.Descripcion Aparato, C.Id IdAparato from articulos A, CATEGORIAS C, MARCAS M where C.Id=A.IdCategoria and M.Id=A.IdMarca";
                 //comando.CommandText = "select A.Id, A.IdMarca,A.IdCategoria,Codigo,A.Nombre NombrArticulo,A.ImagenUrl, Precio, C.Descripcion Tipo, M.Descripcion Marca from ARTICULOS A,MARCAS M, CATEGORIAS C where c.Id=A.IdCategoria and M.id= A.IdMarca";
-                //------------------------------ACA ME QUEDE-------------------------------NO PUEDO MOSTRAR EL PRECIO----------------------
                 comando.Connection = conexion;
 
                 conexion.Open();
@@ -37,7 +36,7 @@ namespace negocio
                     aux.Codigo = (string)lector["Codigo"];
                     aux.Nombre = (string)lector["NombreArticulo"];
                     aux.Descripcion = (string)lector["DescArticulo"];
-                    //------------RE ARREGLADO------------
+                    //------------26/8 ARREGLADO------------
                     aux.Precio = (decimal)lector["Precio"];
 
 
@@ -45,8 +44,9 @@ namespace negocio
                     
                         aux.ImagenUrl = (string)lector["Imagen"];
                     
-                    aux.Categoria = new Categoria();
-                    aux.Categoria.Id = (int)lector["IdCategoria"];
+                    aux.Tipo = new Categoria();
+                    aux.Tipo.Descripcion = (string)lector["Tipo"];
+                    //aux.Tipo.Id = (int)lector["IdCategoria"];
                     aux.Marca = new Marca();
                     aux.Marca.Id = (int)lector["IdMarca"];
 
@@ -74,7 +74,7 @@ namespace negocio
                     datos.setParametros("Nombre",nuevo.Nombre);
                     datos.setParametros("Descripcion",nuevo.Descripcion);
                     datos.setParametros("IdMarca",nuevo.Marca.Id);
-                    datos.setParametros("IdCategoria",nuevo.Categoria.Id);
+                    datos.setParametros("IdCategoria",nuevo.Tipo.Id);
                     datos.setParametros("ImagenUrl",nuevo.ImagenUrl);
                     datos.setParametros("Precio",nuevo.Precio);
 
@@ -100,7 +100,7 @@ namespace negocio
                     datos.setParametros("@Nombre",articulo.Nombre);
                     datos.setParametros("@Descripcion",articulo.Descripcion);
                     datos.setParametros("@IdMarca",articulo.Marca.Id);
-                    datos.setParametros("@IdCategoria",articulo.Categoria.Id);
+                    datos.setParametros("@IdCategoria",articulo.Tipo.Id);
                     datos.setParametros("@ImagenUrl",articulo.ImagenUrl);
                     datos.setParametros("@Precio",articulo.Precio);
                     datos.setParametros("@Id",articulo.Id);
