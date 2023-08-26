@@ -37,7 +37,8 @@ namespace negocio
                     aux.Codigo = (string)lector["Codigo"];
                     aux.Nombre = (string)lector["NombreArticulo"];
                     aux.Descripcion = (string)lector["DescArticulo"];
-                    aux.Precio = lector.GetInt32(0);
+                    //------------RE ARREGLADO------------
+                    aux.Precio = (decimal)lector["Precio"];
 
 
                     if (!(lector["Imagen"] is DBNull))
