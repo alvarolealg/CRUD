@@ -20,10 +20,7 @@ namespace Presentacion
             InitializeComponent();
         }
 
-        private void frmAltaArticulo_Load(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
@@ -34,6 +31,9 @@ namespace Presentacion
                 articulo.Codigo=(txtCodigo.Text);
                 articulo.Nombre=txtNombre.Text;
                 articulo.Descripcion=txtDescripcion.Text;
+                articulo.Tipo=(Categoria)cboCategoria.SelectedItem;
+                articulo.Marca=(Marca)cboMarca.SelectedItem;
+                articulo.ImagenUrl=txtImagen.Text;
 
                 negocio.agregar(articulo);
                 MessageBox.Show("Agregado exitosamente");
@@ -47,6 +47,22 @@ namespace Presentacion
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void frmAltaArticulo_Load(object sender, EventArgs e)
+        {
+              CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+              MarcaNegocio marcaNegocio = new MarcaNegocio();
+            try
+            {
+                cboCategoria.DataSource = categoriaNegocio.listar();
+                cboMarca.DataSource=marcaNegocio.listar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
         }
     }
 }

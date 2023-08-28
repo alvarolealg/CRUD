@@ -79,6 +79,8 @@ namespace negocio
                     datos.setParametros("ImagenUrl",nuevo.ImagenUrl);
                     datos.setParametros("Precio",nuevo.Precio);
 
+                datos.ejecutarAccion();
+
                 }
                 catch (Exception ex)
                 {
