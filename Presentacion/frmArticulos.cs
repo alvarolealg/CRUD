@@ -22,16 +22,14 @@ namespace Presentacion
 
         private void frmArticulos_Load(object sender, EventArgs e)
         {
-           cargar();
+            cargar();
+            formCelda();
         }
 
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
-            //if(dgvArticulos.CurrentRow != null)
-            //{
-                Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-                cargarImagen(seleccionado.ImagenUrl);
-            //}
+            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            cargarImagen(seleccionado.ImagenUrl);
         }
 
         private void cargar()
@@ -40,7 +38,8 @@ namespace Presentacion
             try
             {
                 listaArticulo = negocio.listar();
-                dgvArticulos.DataSource=listaArticulo;
+                dgvArticulos.DataSource = listaArticulo;
+
                 ocultarColumnas();
                 cargarImagen(listaArticulo[0].ImagenUrl);
             }
@@ -51,8 +50,8 @@ namespace Presentacion
         }
         private void ocultarColumnas()
         {
-            dgvArticulos.Columns["ImagenUrl"].Visible=false;
-            dgvArticulos.Columns["Id"].Visible=false;   
+            dgvArticulos.Columns["ImagenUrl"].Visible = false;
+            dgvArticulos.Columns["Id"].Visible = false;
         }
         private void cargarImagen(string imagen)
         {
@@ -81,5 +80,10 @@ namespace Presentacion
             modificar.ShowDialog();
             cargar();
         }
+        private void formCelda()
+        {
+            dgvArticulos.Columns["Precio"].DefaultCellStyle.Format = "N3";
+        }
+
     }
 }

@@ -27,6 +27,10 @@ namespace Presentacion
             this.articulo = articulo;
             Text = "Modificar Articulo";
         }       
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
@@ -34,15 +38,30 @@ namespace Presentacion
             ArticuloNegocio negocio = new ArticuloNegocio();
             try
             {
-                articulo.Codigo=(txtCodigo.Text);
-                articulo.Nombre=txtNombre.Text;
-                articulo.Descripcion=txtDescripcion.Text;
-                articulo.Tipo=(Categoria)cboCategoria.SelectedItem;
-                articulo.Marca=(Marca)cboMarca.SelectedItem;
-                articulo.ImagenUrl=txtImagen.Text;
+                if (articulo == null)
+                    articulo = new Articulo();
 
-                negocio.agregar(articulo);
+                articulo.Codigo = (txtCodigo.Text);
+                articulo.Nombre = txtNombre.Text;
+                articulo.Descripcion = txtDescripcion.Text;
+                articulo.Marca = (Marca)cboMarca.SelectedItem;
+                articulo.Tipo = (Categoria)cboCategoria.SelectedItem;
+                articulo.ImagenUrl = txtImagen.Text;
+                articulo.Precio = decimal.Parse(txtPrecio.Text);
+
+                if (articulo.Id != 0)
+                {
+                negocio.modificar(articulo);
                 MessageBox.Show("Agregado exitosamente");
+                }
+                else
+                {
+                    negocio.agregar(articulo);
+                    MessageBox.Show("Agregado exitosamente");
+                }
+
+                Close();
+
             }
             catch (Exception ex)
             {
@@ -50,10 +69,6 @@ namespace Presentacion
             }
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
 
         private void frmAltaArticulo_Load(object sender, EventArgs e)
         {
