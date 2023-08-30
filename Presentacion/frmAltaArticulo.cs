@@ -15,12 +15,18 @@ namespace Presentacion
 {
     public partial class frmAltaArticulo : Form
     {
+        private Articulo articulo=null;
+        private OpenFileDialog archivo = null;
         public frmAltaArticulo()
         {
             InitializeComponent();
         }
-
-       
+        public frmAltaArticulo(Articulo articulo)
+        {
+            InitializeComponent();
+            this.articulo = articulo;
+            Text = "Modificar Articulo";
+        }       
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
