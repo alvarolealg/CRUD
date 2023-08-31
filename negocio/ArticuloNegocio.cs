@@ -27,7 +27,7 @@ namespace negocio
                 comando.Connection = conexion;
 
                 conexion.Open();
-                lector=comando.ExecuteReader();
+                lector = comando.ExecuteReader();
 
                 while (lector.Read())
                 {
@@ -41,9 +41,9 @@ namespace negocio
 
 
                     if (!(lector["Imagen"] is DBNull))
-                    
+
                         aux.ImagenUrl = (string)lector["Imagen"];
-                    
+
                     aux.Tipo = new Categoria();
                     aux.Tipo.Descripcion = (string)lector["Tipo"];
                     aux.Tipo.Id = (int)lector["IdCategoria"];
@@ -51,72 +51,75 @@ namespace negocio
                     aux.Marca.Descripcion = (string)lector["Marca"];
                     aux.Marca.Id = (int)lector["IdMarca"];
 
-                        lista.Add(aux);
-                    }
-
-                    conexion.Close();   
-                    return lista;
+                    lista.Add(aux);
                 }
-                catch (Exception ex)
-                {
+
+                conexion.Close();
+                return lista;
+            }
+            catch (Exception ex)
+            {
 
                 throw ex;
-                }
             }
+        }
 
-            public void agregar(Articulo nuevo)
+        public void agregar(Articulo nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
             {
-                AccesoDatos datos = new AccesoDatos();
-
-                try
-                {
-                    datos.setConsulta("insert into ARTICULOS(Codigo, Nombre,Descripcion, IdMarca,IdCategoria,ImagenUrl,Precio )values(@Codigo,@nombre,@Descripcion,@IdMarca,@IdCategoria,@ImagenUrl,@Precio)");
-                    datos.setParametros("Codigo",nuevo.Codigo);
-                    datos.setParametros("Nombre",nuevo.Nombre);
-                    datos.setParametros("Descripcion",nuevo.Descripcion);
-                    datos.setParametros("IdMarca",nuevo.Marca.Id);
-                    datos.setParametros("IdCategoria",nuevo.Tipo.Id);
-                    datos.setParametros("ImagenUrl",nuevo.ImagenUrl);
-                    datos.setParametros("Precio",nuevo.Precio);
+                datos.setConsulta("insert into ARTICULOS(Codigo, Nombre,Descripcion, IdMarca,IdCategoria,ImagenUrl,Precio )values(@Codigo,@nombre,@Descripcion,@IdMarca,@IdCategoria,@ImagenUrl,@Precio)");
+                datos.setParametros("Codigo", nuevo.Codigo);
+                datos.setParametros("Nombre", nuevo.Nombre);
+                datos.setParametros("Descripcion", nuevo.Descripcion);
+                datos.setParametros("IdMarca", nuevo.Marca.Id);
+                datos.setParametros("IdCategoria", nuevo.Tipo.Id);
+                datos.setParametros("ImagenUrl", nuevo.ImagenUrl);
+                datos.setParametros("Precio", nuevo.Precio);
 
                 datos.ejecutarAccion();
 
-                }
-                catch (Exception ex)
-                {
-
-                    throw ex;
-                }
-                finally
-                {
-                datos.cerrarConexion();
-                }
             }
-
-            public void modificar(Articulo articulo)
+            catch (Exception ex)
             {
-                AccesoDatos datos = new AccesoDatos();
-                try
-                {
-                    datos.setConsulta("update ARTICULOS set Codigo = @Codigo, Nombre=@Nombre, Descripcion = @Descripcion, IdMarca = @IdMarca, IdCategoria = @IdCategoria, ImagenUrl = @ImagenUrl, Precio = @Precio where Id=@Id");
-                    datos.setParametros("@Codigo",articulo.Codigo);
-                    datos.setParametros("@Nombre",articulo.Nombre);
-                    datos.setParametros("@Descripcion",articulo.Descripcion);
-                    datos.setParametros("@IdMarca",articulo.Marca.Id);
-                    datos.setParametros("@IdCategoria",articulo.Tipo.Id);
-                    datos.setParametros("@ImagenUrl",articulo.ImagenUrl);
-                    datos.setParametros("@Precio",articulo.Precio);
-                    datos.setParametros("@Id",articulo.Id);
-                }
-                catch (Exception ex)
-                {
 
-                    throw ex;
-                }
-                finally
-                {
-                    datos.cerrarConexion();
-                }
-            } 
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
+
+        public void modificar(Articulo art)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("update ARTICULOS set Codigo = @Cod, Nombre=@Nombre, Descripcion = @Desc, IdMarca = @IdMarca, IdCategoria = @IdCat, ImagenUrl = @Img, Precio = @Precio where Id=@Id");
+                datos.setParametros("@Cod", art.Codigo);
+                datos.setParametros("@Nombre", art.Nombre);
+                datos.setParametros("@Desc", art.Descripcion);
+                datos.setParametros("@IdMarca", art.Marca.Id);
+                datos.setParametros("@IdCat", art.Tipo.Id);
+                datos.setParametros("@Img", art.ImagenUrl);
+                datos.setParametros("@Precio", art.Precio);
+                datos.setParametros("@Id", art.Id);
+
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+    }
 }
