@@ -34,7 +34,6 @@ namespace Presentacion
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Articulo articulo = new Articulo();
             ArticuloNegocio negocio = new ArticuloNegocio();
             try
             {
@@ -49,7 +48,7 @@ namespace Presentacion
                 articulo.ImagenUrl = txtImagen.Text;
                 articulo.Precio = decimal.Parse(txtPrecio.Text);
 
-                if (articulo.Id == 0)
+                if (articulo.Id != 0)
                 {
                     negocio.modificar(articulo);
                     MessageBox.Show("Modificado exitosamente");

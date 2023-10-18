@@ -22,8 +22,6 @@ namespace negocio
                 conexion.ConnectionString = "server=.\\SQLEXPRESS; database=CATALOGO_DB; integrated security = true";
                 comando.CommandType = System.Data.CommandType.Text;
                 comando.CommandText = "select A.Id IdArticulo,A.IdMarca,A.IdCategoria, A.Codigo Codigo, A.Nombre NombreArticulo, A.Descripcion DescArticulo, A.ImagenUrl Imagen,Precio,C.Descripcion Tipo, M.Descripcion Marca from ARTICULOS A, CATEGORIAS C, MARCAS M where C.Id=A.IdCategoria and M.Id=A.IdMarca";
-                //comando.CommandText = "select A.Id IdArticulo,Codigo,Nombre,A.Descripcion DescArticulo,Precio,M.Descripcion Marca,M.Id IdMarca, C.Descripcion Aparato, C.Id IdAparato from articulos A, CATEGORIAS C, MARCAS M where C.Id=A.IdCategoria and M.Id=A.IdMarca";
-                //comando.CommandText = "select A.Id, A.IdMarca,A.IdCategoria,Codigo,A.Nombre NombrArticulo,A.ImagenUrl, Precio, C.Descripcion Tipo, M.Descripcion Marca from ARTICULOS A,MARCAS M, CATEGORIAS C where c.Id=A.IdCategoria and M.id= A.IdMarca";
                 comando.Connection = conexion;
 
                 conexion.Open();
@@ -119,6 +117,22 @@ namespace negocio
             finally
             {
                 datos.cerrarConexion();
+            }
+        }
+
+        public void eliminar(int id)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setConsulta("delete from ARTICULOS where id = @id");
+                datos.setParametros("@id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
         }
     }

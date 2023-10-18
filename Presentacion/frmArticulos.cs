@@ -23,13 +23,18 @@ namespace Presentacion
         private void frmArticulos_Load(object sender, EventArgs e)
         {
             cargar();
+            
             formCelda();
         }
 
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
+            if (dgvArticulos.CurrentRow != null)
+            {
             Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
             cargarImagen(seleccionado.ImagenUrl);
+
+            }
         }
 
         private void cargar()
@@ -86,5 +91,21 @@ namespace Presentacion
             dgvArticulos.Columns["Precio"].DefaultCellStyle.Format = "N3";
         }
 
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio= new ArticuloNegocio();
+            Articulo seleccionado;
+            try
+            {
+                seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                negocio.eliminar(seleccionado.Id);
+                cargar();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 }
