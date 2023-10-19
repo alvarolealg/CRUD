@@ -157,7 +157,6 @@
             this.cboMarca.Name = "cboMarca";
             this.cboMarca.Size = new System.Drawing.Size(160, 24);
             this.cboMarca.TabIndex = 3;
-            this.cboMarca.SelectedIndexChanged += new System.EventHandler(this.cboMarca_SelectedIndexChanged);
             // 
             // cboCategoria
             // 
@@ -237,6 +236,10 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(658, 349);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(658, 349);
             this.Name = "frmAltaArticulo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Articulo";

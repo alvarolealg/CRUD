@@ -34,14 +34,14 @@
             this.dgvArticulos = new System.Windows.Forms.DataGridView();
             this.txtFiltroRapido = new System.Windows.Forms.TextBox();
             this.pbxArticulo = new System.Windows.Forms.PictureBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.cboCriterio = new System.Windows.Forms.ComboBox();
+            this.cboCampo = new System.Windows.Forms.ComboBox();
+            this.txtFiltroAvanzado = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblFiltroRapido = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblCampo = new System.Windows.Forms.Label();
+            this.lblCriterio = new System.Windows.Forms.Label();
+            this.lblFiltroAvanzado = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxArticulo)).BeginInit();
             this.SuspendLayout();
@@ -100,6 +100,7 @@
             this.txtFiltroRapido.Name = "txtFiltroRapido";
             this.txtFiltroRapido.Size = new System.Drawing.Size(228, 22);
             this.txtFiltroRapido.TabIndex = 4;
+            this.txtFiltroRapido.TextChanged += new System.EventHandler(this.txtFiltroRapido_TextChanged);
             // 
             // pbxArticulo
             // 
@@ -111,41 +112,45 @@
             this.pbxArticulo.TabIndex = 5;
             this.pbxArticulo.TabStop = false;
             // 
-            // comboBox1
+            // cboCriterio
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(205, 528);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(160, 24);
-            this.comboBox1.TabIndex = 6;
+            this.cboCriterio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCriterio.FormattingEnabled = true;
+            this.cboCriterio.Location = new System.Drawing.Point(350, 523);
+            this.cboCriterio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboCriterio.Name = "cboCriterio";
+            this.cboCriterio.Size = new System.Drawing.Size(160, 24);
+            this.cboCriterio.TabIndex = 6;
             // 
-            // comboBox2
+            // cboCampo
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(499, 528);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(176, 24);
-            this.comboBox2.TabIndex = 7;
+            this.cboCampo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCampo.FormattingEnabled = true;
+            this.cboCampo.Location = new System.Drawing.Point(93, 523);
+            this.cboCampo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboCampo.Name = "cboCampo";
+            this.cboCampo.Size = new System.Drawing.Size(160, 24);
+            this.cboCampo.TabIndex = 7;
+            this.cboCampo.SelectedIndexChanged += new System.EventHandler(this.cboCampo_SelectedIndexChanged);
             // 
-            // textBox2
+            // txtFiltroAvanzado
             // 
-            this.textBox2.Location = new System.Drawing.Point(795, 530);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(183, 22);
-            this.textBox2.TabIndex = 8;
+            this.txtFiltroAvanzado.Location = new System.Drawing.Point(596, 523);
+            this.txtFiltroAvanzado.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFiltroAvanzado.Name = "txtFiltroAvanzado";
+            this.txtFiltroAvanzado.Size = new System.Drawing.Size(160, 22);
+            this.txtFiltroAvanzado.TabIndex = 8;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(1187, 524);
+            this.btnBuscar.Location = new System.Drawing.Point(776, 523);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(100, 28);
+            this.btnBuscar.Size = new System.Drawing.Size(125, 30);
             this.btnBuscar.TabIndex = 9;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // lblFiltroRapido
             // 
@@ -157,49 +162,49 @@
             this.lblFiltroRapido.TabIndex = 10;
             this.lblFiltroRapido.Text = "Filtro Rápido:";
             // 
-            // label2
+            // lblCampo
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(135, 537);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 16);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "label2";
+            this.lblCampo.AutoSize = true;
+            this.lblCampo.Location = new System.Drawing.Point(21, 531);
+            this.lblCampo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCampo.Name = "lblCampo";
+            this.lblCampo.Size = new System.Drawing.Size(54, 16);
+            this.lblCampo.TabIndex = 11;
+            this.lblCampo.Text = "Campo:";
             // 
-            // label3
+            // lblCriterio
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(429, 537);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 16);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "label3";
+            this.lblCriterio.AutoSize = true;
+            this.lblCriterio.Location = new System.Drawing.Point(281, 531);
+            this.lblCriterio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCriterio.Name = "lblCriterio";
+            this.lblCriterio.Size = new System.Drawing.Size(52, 16);
+            this.lblCriterio.TabIndex = 12;
+            this.lblCriterio.Text = "Criterio:";
             // 
-            // label4
+            // lblFiltroAvanzado
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(721, 537);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 16);
-            this.label4.TabIndex = 13;
-            this.label4.Text = "label4";
+            this.lblFiltroAvanzado.AutoSize = true;
+            this.lblFiltroAvanzado.Location = new System.Drawing.Point(539, 531);
+            this.lblFiltroAvanzado.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblFiltroAvanzado.Name = "lblFiltroAvanzado";
+            this.lblFiltroAvanzado.Size = new System.Drawing.Size(39, 16);
+            this.lblFiltroAvanzado.TabIndex = 13;
+            this.lblFiltroAvanzado.Text = "Filtro:";
             // 
             // frmArticulos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1299, 574);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblFiltroAvanzado);
+            this.Controls.Add(this.lblCriterio);
+            this.Controls.Add(this.lblCampo);
             this.Controls.Add(this.lblFiltroRapido);
             this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.txtFiltroAvanzado);
+            this.Controls.Add(this.cboCampo);
+            this.Controls.Add(this.cboCriterio);
             this.Controls.Add(this.pbxArticulo);
             this.Controls.Add(this.txtFiltroRapido);
             this.Controls.Add(this.dgvArticulos);
@@ -207,7 +212,9 @@
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnAgregar);
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.MinimumSize = new System.Drawing.Size(1279, 611);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1317, 621);
+            this.MinimumSize = new System.Drawing.Size(1317, 621);
             this.Name = "frmArticulos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Articulos";
@@ -227,14 +234,14 @@
         private System.Windows.Forms.DataGridView dgvArticulos;
         private System.Windows.Forms.TextBox txtFiltroRapido;
         private System.Windows.Forms.PictureBox pbxArticulo;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox cboCriterio;
+        private System.Windows.Forms.ComboBox cboCampo;
+        private System.Windows.Forms.TextBox txtFiltroAvanzado;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label lblFiltroRapido;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblCampo;
+        private System.Windows.Forms.Label lblCriterio;
+        private System.Windows.Forms.Label lblFiltroAvanzado;
     }
 }
 

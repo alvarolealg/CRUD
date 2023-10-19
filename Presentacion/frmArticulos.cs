@@ -23,7 +23,9 @@ namespace Presentacion
         private void frmArticulos_Load(object sender, EventArgs e)
         {
             cargar();
-            
+            cboCampo.Items.Add("Tipo");
+            cboCampo.Items.Add("Nombre");
+            cboCampo.Items.Add("Descripción");
             formCelda();
         }
 
@@ -31,8 +33,8 @@ namespace Presentacion
         {
             if (dgvArticulos.CurrentRow != null)
             {
-            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-            cargarImagen(seleccionado.ImagenUrl);
+                Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                cargarImagen(seleccionado.ImagenUrl);
 
             }
         }
@@ -93,22 +95,66 @@ namespace Presentacion
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            ArticuloNegocio negocio= new ArticuloNegocio();
+            ArticuloNegocio negocio = new ArticuloNegocio();
             Articulo seleccionado;
             try
             {
                 DialogResult respuesta = MessageBox.Show("¿Estas seguro que quieres eliminar el articulo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (respuesta == DialogResult.Yes)
                 {
-                seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-                negocio.eliminar(seleccionado.Id);
-                cargar();
+                    seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                    negocio.eliminar(seleccionado.Id);
+                    cargar();
 
                 }
             }
             catch (Exception ex)
             {
 
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void txtFiltroRapido_TextChanged(object sender, EventArgs e)
+        {
+            List<Articulo> ListaFiltrada;
+            string filtro = txtFiltroRapido.Text;
+
+            if (filtro.Length >= 2) { }
+
+            ListaFiltrada = listaArticulo.FindAll(x => x.Nombre.ToUpper().Contains(filtro.ToUpper()) || x.Tipo.Descripcion.ToUpper().Contains(filtro.ToUpper()) || x.Marca.Descripcion.ToUpper().Contains(filtro.ToUpper() ));
+            dgvArticulos.DataSource = null;
+            dgvArticulos.DataSource = ListaFiltrada;
+            ocultarColumnas();
+
+        }
+
+        private void cboCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string opcion = cboCampo.SelectedItem.ToString();
+
+            if (opcion == "Tipo" || opcion=="Nombre" || opcion=="Descripción")
+            {
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Comienza con");
+                cboCriterio.Items.Add("Termina con");
+                cboCriterio.Items.Add("Contiene");
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            try
+            {
+            string campo = cboCampo.SelectedItem.ToString();
+            string criterio = cboCriterio.SelectedItem.ToString();
+            string filtro = txtFiltroAvanzado.Text;
+            dgvArticulos.DataSource = negocio.filtrar(campo,criterio, filtro);
+
+            }
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.ToString());
             }
         }
