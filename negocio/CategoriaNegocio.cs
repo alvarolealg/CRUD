@@ -27,7 +27,15 @@ namespace negocio
 
                     lista.Add(aux);
                 }
-                return lista;
+
+                //FILTRAR DUPLICADOS
+
+                List<Categoria> ListaSinDuplicados = lista
+                    .GroupBy(c=> c.Id)
+                    .Select(g=> g.First())
+                    .ToList();
+
+                return ListaSinDuplicados;
             }
             catch (Exception ex)
             {

@@ -97,9 +97,14 @@ namespace Presentacion
             Articulo seleccionado;
             try
             {
+                DialogResult respuesta = MessageBox.Show("¿Estas seguro que quieres eliminar el articulo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (respuesta == DialogResult.Yes)
+                {
                 seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
                 negocio.eliminar(seleccionado.Id);
                 cargar();
+
+                }
             }
             catch (Exception ex)
             {
